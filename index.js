@@ -13,8 +13,8 @@ const http = require('http');
 
 function handler(req, res) {
     // streams
-    res.write("Hello Node API");
-    res.write("Second line");
+    res.write("Hello Node API!");
+    res.write("Second line!");
     res.end();
 }
 
