@@ -1,32 +1,56 @@
-// Hyper text transfer protocol
-// format
-// two parties
-// client - server
-// browser - server
-// https://www.google.com - files
-// apache, tomcat, IIS, NodeJS
-// module: file, package, module
-// routing
-// git -> github -> push
-// git -> pull
 const http = require('http');
+const fs = require('fs');
 
 function handler(req, res) {
-    // streams
-    res.write("Hello Node API!");
-    res.write("Second line!");
-    res.end();
+    // routing
+    // api
+    // json
+    // express js (framework)
+    // knife
+    // chopper
+    switch (req.url) {
+        case '/':
+            const contents = fs.readFileSync('index.html');
+            res.write(contents.toString());
+            res.end();
+            break;
+
+        case '/books':
+            const books = [{
+                id: 1,
+                name: 'Clean Code',
+                rating: 4,
+                author: 'Robert Martin',
+                price: 50
+            }, {
+                id: 2,
+                name: 'Clean Coder',
+                rating: 4.5,
+                author: 'Robert Martin',
+                price: 50
+            }];
+
+            res.write(JSON.stringify(books));
+            res.end();
+            break;
+
+        case '/authors':
+            res.write('Authors API');
+            res.end();
+            break;
+
+        default:
+            res.write('Not found');
+            res.end();
+            break;
+    }
 }
 
-// callback function
 const server = http.createServer(handler);
 const port = 3000;
-// async
-// non-blocking
-// 127.0.0.1
-// client - server 
-// localhost - localhost
-// localhost - 192.34.58.20 (www.google.com)
-server.listen(port, () => {
-    console.log(`Server is running on ${port}`);
-});
+
+server.listen(port, () => console.log(`server is running on ${port}`));
+
+
+// http server
+// website
