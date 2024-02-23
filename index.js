@@ -37,3 +37,9 @@ app.use('/api/v1/books', bookRoutes);
 // Stateless: new request, scalability
 // cacheability 
 // layered system
+
+// GET all
+// GET by id
+// POST
+// delete
+// update
