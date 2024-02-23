@@ -4,6 +4,10 @@
 // update book
 // delete book
 // patch book
+// REST api
+// Get all books
+// Get by id
+// Create book
 const booksDb = [{
     id: 1,
     name: 'Clean Code',
@@ -40,13 +44,26 @@ const getById = (req, res) => {
 };
 
 // index.js -> routes -> controllers -> service -> repo
-
 const authors = function (req, res) {
     res.send('Authors');
 };
+
+// POST
+// http://localhost:3000/books
+// body {}
+const post = function (req, res) {
+    const { body } = req;
+    console.log('body', body);
+
+    booksDb.push(body);
+    res.status(201); // Created
+    res.send('Created');
+}
+
 
 module.exports = {
     books,
     authors,
     getById,
+    post,
 };

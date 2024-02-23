@@ -9,8 +9,10 @@ app.listen(port, () => {
     console.log(`server is running on port ${port}`);
 });
 
-app.use(defaultRoutes);
-app.use(bookRoutes);
+app.use(express.json());
+
+app.use('/', defaultRoutes);
+app.use('/api/v1/books', bookRoutes);
 
 // REST api
 // Representational state transfer
