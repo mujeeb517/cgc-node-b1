@@ -26,6 +26,7 @@ app.use('/api/v1/products', productRoutes);
 // Representational state transfer
 // Everything is a resource
 // 5 principles
+// product POST
 
 // index.js -> routes -> controllers
 
