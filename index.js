@@ -1,7 +1,9 @@
 const express = require('express');
+const mongoose = require('mongoose');
 
 const defaultRoutes = require('./routes/defaultRouter');
 const bookRoutes = require('./routes/bookRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 const port = 3000;
@@ -10,10 +12,16 @@ app.listen(port, () => {
 });
 
 app.use(express.json());
+mongoose.connect('mongodb://localhost:27017/cgc-b1');
+console.log('db connected');
 
 app.use('/', defaultRoutes);
 app.use('/api/v1/books', bookRoutes);
+app.use('/api/v1/products', productRoutes);
 
+// schema, model
+// structure
+// employee, student
 // REST api
 // Representational state transfer
 // Everything is a resource

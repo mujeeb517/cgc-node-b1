@@ -54,6 +54,8 @@ const authors = function (req, res) {
 // http://localhost:3000/books
 // body {}
 // validations
+// Mongodb
+// node - db
 const isInvalid = (body) => {
     return !body.name || !body.price || !body.author;
 };
