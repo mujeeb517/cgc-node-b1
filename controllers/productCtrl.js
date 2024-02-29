@@ -6,9 +6,23 @@ const get = async (req, res) => {
         const page = req.params.page || 1;
 
         const data = await productRepo.get(page, size);
+        const rows = await productRepo.getCount();
+        const pages = Math.ceil(rows / size);
+
+        const metadata = {
+            rows,
+            pages
+        };
+
+        const response = {
+            data,
+            metadata
+        };
+
         res.status(200);
-        res.json(data);
+        res.json(response);
     } catch (err) {
+        console.error(err);
         res.status(500);
         res.send('Internal Server Error');
     }
@@ -87,8 +101,4 @@ total pages:  Math.ceil(total rows)/page size
 4: 31 - 40 skip: 30  (4-1)*10 = 30
 
 ( current page - 1 ) * pageSize
-
-
-1 - 20  (1-1)*20 = 0 
-21 - 40 (2-1)*20 = 20
 */

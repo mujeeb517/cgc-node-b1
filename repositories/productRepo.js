@@ -1,5 +1,9 @@
 const Product = require('../models/productModel');
 
+const getCount = () => {
+    return Product.countDocuments();
+};
+
 const get = (current, size) => {
     const rows = 13;
     const rowsToSkip = (current - 1) * size;
@@ -33,5 +37,6 @@ module.exports = {
     create,
     remove,
     update,
+    getCount,
 }
 
