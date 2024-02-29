@@ -1,8 +1,8 @@
-const Product = require('../models/productModel');
+const productRepo = require('../repositories/productRepo');
 
 const get = async (req, res) => {
     try {
-        const data = await Product.find({}, { __v: 0 });
+        const data = await productRepo.get();
         res.status(200);
         res.json(data);
     } catch (err) {
@@ -13,7 +13,7 @@ const get = async (req, res) => {
 
 const getById = async (req, res) => {
     const id = req.params.id;
-    const data = await Product.findById(id, { __v: 0 });
+    const data = await productRepo.getById(id);
     if (!data) {
         res.status(404);
         res.send('Not found')
@@ -26,8 +26,7 @@ const getById = async (req, res) => {
 const post = async function (req, res) {
     try {
         const { body } = req;
-        const product = new Product(body);
-        await product.save();
+        await productRepo.create(body);
         res.status(201);
         res.send('Created');
     } catch (err) {
@@ -40,7 +39,7 @@ const post = async function (req, res) {
 const remove = async (req, res) => {
     try {
         const id = req.params.id;
-        await Product.deleteOne({ _id: id });
+        await productRepo.remove(id);
         res.status(204);
         res.send();
     } catch (err) {
@@ -53,7 +52,7 @@ const remove = async (req, res) => {
 const put = async (req, res) => {
     try {
         const id = req.params.id;
-        await Product.updateOne({ _id: id }, req.body);
+        await productRepo.update(id, req.body);
         res.status(204);
         res.send();
     } catch (err) {
@@ -61,7 +60,6 @@ const put = async (req, res) => {
         res.send('Internal Server Error');
     }
 };
-
 
 module.exports = {
     get,
