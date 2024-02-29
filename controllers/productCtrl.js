@@ -2,7 +2,10 @@ const productRepo = require('../repositories/productRepo');
 
 const get = async (req, res) => {
     try {
-        const data = await productRepo.get();
+        const size = req.params.size || 10;
+        const page = req.params.page || 1;
+
+        const data = await productRepo.get(page, size);
         res.status(200);
         res.json(data);
     } catch (err) {
@@ -68,3 +71,24 @@ module.exports = {
     remove,
     put,
 }
+
+
+/*
+Total Rows: 101
+page size: 10
+
+total pages:  Math.ceil(total rows)/page size
+
+1 2 3 ... 10
+
+1: 1 -10   skip: 0   (1-1)*10 = 0
+2: 11 - 20 skip: 10  (2-1)*10 = 10
+3: 21 - 30  skip: 20 (3-1)* 10 = 20
+4: 31 - 40 skip: 30  (4-1)*10 = 30
+
+( current page - 1 ) * pageSize
+
+
+1 - 20  (1-1)*20 = 0 
+21 - 40 (2-1)*20 = 20
+*/

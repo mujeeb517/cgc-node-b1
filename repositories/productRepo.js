@@ -1,7 +1,13 @@
 const Product = require('../models/productModel');
 
-const get = () => {
-    return Product.find({}, { __v: 0 });
+const get = (current, size) => {
+    const rows = 13;
+    const rowsToSkip = (current - 1) * size;
+
+    return Product
+        .find({}, { __v: 0 })
+        .skip(rowsToSkip)
+        .limit(size);
 };
 
 const getById = (id) => {
@@ -28,3 +34,4 @@ module.exports = {
     remove,
     update,
 }
+
