@@ -14,7 +14,9 @@ const getCount = (search) => {
     return Product.countDocuments(filter);
 };
 
-const get = (current, size, search, sort, direction) => {
+const get = (options) => {
+    const { sort, current, size, search, direction } = options;
+
     const rowsToSkip = (current - 1) * size;
     const filter = getFilterExp(search);
 
