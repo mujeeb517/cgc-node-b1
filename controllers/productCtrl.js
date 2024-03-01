@@ -1,14 +1,16 @@
 const productRepo = require('../repositories/productRepo');
 
 // filtering, pagination, sort
-// search box apple -> api/v1/products/page/1/size/10?search=apple&brand=iphone&sort
+// search box apple -> api/v1/products/page/1/size/10?search=apple&sort=price&direction=desc
 const get = async (req, res) => {
     try {
         const size = req.params.size || 10;
         const page = req.params.page || 1;
         const search = req.query.search;
+        const sort = req.query.sort;
+        const direction = req.query.direction || 'asc';
 
-        const data = await productRepo.get(page, size, search);
+        const data = await productRepo.get(page, size, search, sort, direction);
         const rows = await productRepo.getCount(search);
         const pages = Math.ceil(rows / size);
 

@@ -14,12 +14,18 @@ const getCount = (search) => {
     return Product.countDocuments(filter);
 };
 
-const get = (current, size, search) => {
+const get = (current, size, search, sort, direction) => {
     const rowsToSkip = (current - 1) * size;
     const filter = getFilterExp(search);
 
+    let sortDir = 1;
+    if (direction.toLowerCase() === 'desc') {
+        sortDir = -1;
+    }
+
     return Product
         .find(filter, { __v: 0 })
+        .sort({ [sort]: sortDir })
         .skip(rowsToSkip)
         .limit(size);
 };
