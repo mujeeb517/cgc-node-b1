@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const defaultRoutes = require('./routes/defaultRouter');
 const bookRoutes = require('./routes/bookRoutes');
 const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const port = 3000;
@@ -18,6 +19,7 @@ console.log('db connected');
 app.use('/', defaultRoutes);
 app.use('/api/v1/books', bookRoutes);
 app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/users', userRoutes);
 
 // schema, model
 // structure

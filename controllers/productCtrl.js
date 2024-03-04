@@ -1,7 +1,15 @@
 const productRepo = require('../repositories/productRepo');
 
+// event loop
 // filtering, pagination, sort
 // search box apple -> api/v1/products/page/1/size/10?search=apple&sort=price&direction=desc
+// authentication
+// authorization
+// file upload
+// reviews
+// avg rating (aggregation)
+// logging
+// deployment
 const get = async (req, res) => {
     try {
         const options = {
@@ -91,7 +99,6 @@ module.exports = {
     remove,
     put,
 }
-
 
 /*
 Total Rows: 101
