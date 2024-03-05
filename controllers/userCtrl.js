@@ -8,7 +8,6 @@ const signup = async (req, res) => {
     try {
         const payload = req.body;
         payload.password = await bcrypt.hash(payload.password, 2);
-        console.log(payload);
         payload.createdDate = new Date();
         await userRepo.add(payload);
         res.status(201);
@@ -25,6 +24,34 @@ const signup = async (req, res) => {
     }
 };
 
+const signin = async (req, res) => {
+    try {
+        const body = req.body;
+        const dbUser = await userRepo.getUserByEmail(body.email);
+        if (!dbUser) {
+            res.status(401);
+            res.send('Invalid email or password');
+            return;
+        }
+
+        const isValid = await bcrypt.compare(body.password, dbUser.password);
+        if (isValid) {
+            res.status(200);
+            res.json({
+                firstName: dbUser.firstName,
+                lastName: dbUser.lastName
+            });
+        } else {
+            res.status(401);
+            res.send('Invalid email or password');
+        }
+    } catch (err) {
+        res.status(500);
+        res.send('Internal server error');
+    }
+};
+
 module.exports = {
     signup,
+    signin,
 }

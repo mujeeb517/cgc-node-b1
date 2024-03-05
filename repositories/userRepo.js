@@ -6,6 +6,12 @@ const add = (data) => {
     return user.save();
 };
 
+const getUserByEmail = (email) => {
+    return User.findOne({ email: email },
+        { __v: 0, createdDate: 0, updatedDate: 0, _id: 0 })
+};
+
 module.exports = {
     add,
+    getUserByEmail,
 }
