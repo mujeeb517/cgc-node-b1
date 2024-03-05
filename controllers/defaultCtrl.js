@@ -12,6 +12,7 @@ class DefaultCtrl {
     };
 
     health(req, res) {
+        console.log(req.id, "id");
         res.status(200);
         res.json({ status: 'Up' });
     };

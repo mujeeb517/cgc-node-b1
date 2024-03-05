@@ -16,10 +16,17 @@ app.use(express.json());
 mongoose.connect('mongodb://localhost:27017/cgc-b1');
 console.log('db connected');
 
+function middleware(req, res, next) {
+    req.id = "abc-123";
+    next();
+}
+
 app.use('/', defaultRoutes);
 app.use('/api/v1/books', bookRoutes);
-app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/users', userRoutes);
+
+app.use(middleware);
+app.use('/api/v1/products', productRoutes);
 
 // schema, model
 // structure
