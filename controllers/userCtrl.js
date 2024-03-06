@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
 const userRepo = require('../repositories/userRepo.js');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 
 const emailExists = (err) => err.message
     && err.message.indexOf('duplicate key error') > -1
@@ -39,7 +41,10 @@ const signin = async (req, res) => {
             res.status(200);
             res.json({
                 firstName: dbUser.firstName,
-                lastName: dbUser.lastName
+                lastName: dbUser.lastName,
+                token: jwt.sign({ email: dbUser.email }, config.jwtSecret, {
+                    expiresIn: '1d'
+                })
             });
         } else {
             res.status(401);
