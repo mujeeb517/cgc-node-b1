@@ -1,4 +1,5 @@
 const productRepo = require('../repositories/productRepo');
+const logger = require('../utils/logger');
 
 // event loop
 // filtering, pagination, sort
@@ -12,6 +13,7 @@ const productRepo = require('../repositories/productRepo');
 // deployment
 const get = async (req, res) => {
     try {
+        logger.info('fetching products');
         const options = {
             size: req.params.size || 10,
             page: req.params.page || 1,
@@ -22,7 +24,7 @@ const get = async (req, res) => {
         const data = await productRepo.get(options);
         const rows = await productRepo.getCount(options.search);
         const pages = Math.ceil(rows / options.size);
-
+        logger.info('fetched products');
         const metadata = {
             rows,
             pages
