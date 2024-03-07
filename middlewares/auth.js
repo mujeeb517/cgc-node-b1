@@ -37,13 +37,19 @@ function tokenAuth(req, res, next) {
         if (err) {
             res.status(401).send('Unuahorized');
         } else {
-            console.log(decoded);
+            req.role = decoded.role;
             next();
         }
     });
 }
 
+function authorizeAdmin(req, res, next) {
+    if (req.role === 'Admin') next();
+    else res.status(403).send('Forbidden');
+}
+
 module.exports = {
     basicAuth,
     tokenAuth,
+    authorizeAdmin,
 }

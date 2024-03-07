@@ -67,6 +67,7 @@ const post = async function (req, res) {
 }
 
 // api/v1/products/abc-123 DELETE
+// only admins can delete
 const remove = async (req, res) => {
     try {
         const id = req.params.id;

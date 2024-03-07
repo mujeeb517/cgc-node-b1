@@ -9,6 +9,7 @@ const emailExists = (err) => err.message
 const signup = async (req, res) => {
     try {
         const payload = req.body;
+        payload.role = 'User';
         payload.password = await bcrypt.hash(payload.password, 2);
         payload.createdDate = new Date();
         await userRepo.add(payload);
@@ -42,7 +43,10 @@ const signin = async (req, res) => {
             res.json({
                 firstName: dbUser.firstName,
                 lastName: dbUser.lastName,
-                token: jwt.sign({ email: dbUser.email }, config.jwtSecret, {
+                token: jwt.sign({
+                    email: dbUser.email,
+                    role: dbUser.role
+                }, config.jwtSecret, {
                     expiresIn: '1d'
                 })
             });

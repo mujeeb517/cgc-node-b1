@@ -7,6 +7,7 @@ const schema = new Schema({
     email: { type: String, unique: true },
     password: { type: String },
     active: { type: Boolean, default: true },
+    role: { type: String, default: 'User' },
     createdDate: { type: Date },
     updatedDate: { type: Date, default: Date.now },
 });

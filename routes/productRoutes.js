@@ -1,5 +1,6 @@
 const express = require('express');
 const productCtrl = require('../controllers/productCtrl');
+const auth = require('../middlewares/auth');
 const router = express.Router();
 
 // GET /api/v1/products/page/1/size/10
@@ -8,8 +9,7 @@ router.get('/page/:page/size/:size', productCtrl.get);
 
 router.get('/:id', productCtrl.getById);
 router.post('/', productCtrl.post);
-router.delete('/:id', productCtrl.remove);
+router.delete('/:id', auth.authorizeAdmin, productCtrl.remove);
 router.put('/:id', productCtrl.put);
 
 module.exports = router;
- 

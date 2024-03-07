@@ -4,4 +4,7 @@ const config = {
 
 module.exports = config;
 
-// environment variables
+// token validity 24hr
+// never expiring tokens
+// authorization, permission
+// Persona or role
