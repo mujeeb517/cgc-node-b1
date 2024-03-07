@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const fs = require('fs');
 
 const defaultRoutes = require('./routes/defaultRouter');
 const bookRoutes = require('./routes/bookRoutes');
@@ -13,6 +15,10 @@ app.listen(port, () => {
     console.log(`server is running on port ${port}`);
 });
 
+const fsStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: 'a' });
+
+app.use(morgan('dev'));
+app.use(morgan('combined', { stream: fsStream }));
 app.use(express.json());
 mongoose.connect('mongodb://localhost:27017/cgc-b1');
 console.log('db connected');
