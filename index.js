@@ -11,7 +11,7 @@ const userRoutes = require('./routes/userRoutes');
 const auth = require('./middlewares/auth');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const logsDir = path.join(__dirname, "logs");
 
@@ -28,7 +28,8 @@ const fsStream = fs.createWriteStream(path.join(__dirname, 'logs', 'request.log'
 app.use(morgan('dev'));
 app.use(morgan('combined', { stream: fsStream }));
 app.use(express.json());
-mongoose.connect('mongodb://localhost:27017/cgc-b1');
+const conStr = 'mongodb+srv://admin:admin@cluster0.qcdda.mongodb.net';
+mongoose.connect(conStr);
 console.log('db connected');
 
 app.use('/', defaultRoutes);
@@ -38,3 +39,12 @@ app.use('/api/v1/users', userRoutes);
 app.use(auth.tokenAuth);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/books', bookRoutes);
+
+// deployment 
+// cloud, shared hosting 
+// 1 machine - 100
+// preparation
+
+
+// mongodb : localhost, cloud
+// where nodejs
