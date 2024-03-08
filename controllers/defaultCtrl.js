@@ -8,7 +8,7 @@
 class DefaultCtrl {
     home(req, res) {
         res.status(200);
-        res.send('Express API');
+        res.send('Express API!!');
     };
 
     health(req, res) {
