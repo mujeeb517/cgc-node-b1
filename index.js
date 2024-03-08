@@ -23,12 +23,14 @@ app.listen(port, () => {
     console.log(`server is running on port ${port}`);
 });
 
+// https://cgc-node-b1.onrender.com/api/v1/products/page/1/size/10
+
 const fsStream = fs.createWriteStream(path.join(__dirname, 'logs', 'request.log'), { flags: 'a' });
 
 app.use(morgan('dev'));
 app.use(morgan('combined', { stream: fsStream }));
 app.use(express.json());
-const conStr = 'mongodb+srv://admin:admin@cluster0.qcdda.mongodb.net';
+const conStr = process.env.dbConStr;
 mongoose.connect(conStr);
 console.log('db connected');
 
