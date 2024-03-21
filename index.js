@@ -25,6 +25,14 @@ app.listen(port, () => {
 
 // https://cgc-node-b1.onrender.com/api/v1/products/page/1/size/10
 
+// CRUD
+// user management
+// pagination
+// searching 
+// sorting
+// upload a fille
+
+
 const fsStream = fs.createWriteStream(path.join(__dirname, 'logs', 'request.log'), { flags: 'a' });
 
 app.use(morgan('dev'));
@@ -34,11 +42,13 @@ const conStr = process.env.dbConStr;
 mongoose.connect(conStr);
 console.log('db connected');
 
+app.use(express.static('uploads/'));
+
 app.use('/', defaultRoutes);
 app.use('/api/v1/users', userRoutes);
 
 // app.use(auth.basicAuth);
-app.use(auth.tokenAuth);
+// app.use(auth.tokenAuth);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/books', bookRoutes);
 
@@ -46,6 +56,9 @@ app.use('/api/v1/books', bookRoutes);
 // cloud, shared hosting 
 // 1 machine - 100
 // preparation
+
+// upload and save image
+// retrieve image
 
 
 // mongodb : localhost, cloud

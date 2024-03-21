@@ -7,6 +7,7 @@ const schema = new mongoose.Schema({
     inStock: Boolean,
     discount: Number,
     createdDate: Date,
+    image: String,
     updatedDate: {
         type: Date,
         default: Date.now
@@ -16,3 +17,4 @@ const schema = new mongoose.Schema({
 schema.index({ brand: 1, model: 1 });
 
 module.exports = mongoose.model('product', schema);
+

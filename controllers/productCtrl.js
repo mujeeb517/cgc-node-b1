@@ -22,6 +22,15 @@ const get = async (req, res) => {
             direction: req.query.direction || 'desc'
         };
         const data = await productRepo.get(options);
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].image) {
+                const protocol = req.protocol;
+                const domain = req.get('host');
+                data[i].image = `${protocol}://${domain}/${data[i].image}`;
+            }
+        }
+
         const rows = await productRepo.getCount(options.search);
         const pages = Math.ceil(rows / options.size);
         logger.info('fetched products');
