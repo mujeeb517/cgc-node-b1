@@ -3,10 +3,14 @@ const userRepo = require('../repositories/userRepo.js');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 const logger = require('../utils/logger');
+const { errorMonitor } = require('bunyan');
 
 
 const emailExists = (err) => err.message
     && err.message.indexOf('duplicate key error') > -1
+
+const isInvalid = (err) => err.message
+    && err.message.indexOf('validation failed') > -1;
 
 const signup = async (req, res) => {
     try {
@@ -23,7 +27,11 @@ const signup = async (req, res) => {
             location: 'UserCtrl',
             err: err
         });
-        if (emailExists(err)) {
+        if (isInvalid(err)) {
+            res.status(400);
+            res.json(err.errors);
+        }
+        else if (emailExists(err)) {
             res.status(400);
             res.send('Email already exist');
         } else {

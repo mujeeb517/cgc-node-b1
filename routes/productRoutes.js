@@ -7,6 +7,10 @@ const router = express.Router();
 // timestamp
 // random(120)+2024-03-21 8:17:37ip13.jpeg
 // file system 1MB, 100MB, 1GB
+// validations
+// reviews
+// aggregation
+// aggregation pipeline
 const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         const prefix = Math.round(Math.random() * 1e9);
