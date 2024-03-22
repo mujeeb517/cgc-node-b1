@@ -1,4 +1,5 @@
 const productRepo = require('../repositories/productRepo');
+const reviewRepo = require('../repositories/reviewRepo');
 const logger = require('../utils/logger');
 
 // event loop
@@ -109,12 +110,26 @@ const put = async (req, res) => {
     }
 };
 
+const addReview = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const payload = req.body;
+        payload.productId = productId;
+        payload.createdDate = new Date();
+        await reviewRepo.add(payload);
+        res.status(201).send('Created');
+    } catch (err) {
+        res.status(500).send('Internal Server Error');
+    }
+};
+
 module.exports = {
     get,
     post,
     getById,
     remove,
     put,
+    addReview,
 }
 
 /*

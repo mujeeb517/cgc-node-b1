@@ -40,4 +40,6 @@ router.post('/', upload.single('image'), productCtrl.post);
 router.delete('/:id', auth.authorizeAdmin, productCtrl.remove);
 router.put('/:id', productCtrl.put);
 
+router.post('/:id/reviews', productCtrl.addReview);
+
 module.exports = router;
