@@ -12,6 +12,7 @@ const logger = require('../utils/logger');
 // avg rating (aggregation)
 // logging
 // deployment
+// HTML, CSS, Tailwind, React
 const get = async (req, res) => {
     try {
         logger.info('fetching products');
@@ -136,17 +137,17 @@ module.exports = {
 }
 
 /*
-Total Rows: 101
-page size: 10
+   aggregation framework
 
-total pages:  Math.ceil(total rows)/page size
+   db.cities.aggregate([
+     {$match: {state:'NY'}},
+     {$group: {_id: '$city', totalPop: {$sum:'$pop'}} }
+   ]);
 
-1 2 3 ... 10
-
-1: 1 -10   skip: 0   (1-1)*10 = 0
-2: 11 - 20 skip: 10  (2-1)*10 = 10
-3: 21 - 30  skip: 20 (3-1)* 10 = 20
-4: 31 - 40 skip: 30  (4-1)*10 = 30
-
-( current page - 1 ) * pageSize
+    db.cities.aggregate([
+        {$group: {_id: '$state', totalPop: {$sum:'$pop'}} },
+        {$sort: {totalPop:1}},
+        {$limit: 3},
+        {$project: {state: '$_id', population:'$totalPop', _id:0}}
+    ]);
 */
