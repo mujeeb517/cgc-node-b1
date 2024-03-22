@@ -5,6 +5,11 @@ const add = (review) => {
     return item.save();
 };
 
+const get = (productId) => {
+    return Review.find({ productId: productId }, { __v: 0, _id: 0 });
+};
+
 module.exports = {
     add,
+    get,
 };

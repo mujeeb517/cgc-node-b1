@@ -66,8 +66,11 @@ const getById = async (req, res) => {
         res.status(404);
         res.send('Not found')
     } else {
+        // fetch reviews
+        const reviews = await reviewRepo.get(id);
+        const response = { ...data._doc, reviews };
         res.status(200);
-        res.json(data);
+        res.json(response);
     }
 };
 
