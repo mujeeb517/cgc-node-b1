@@ -69,7 +69,9 @@ const getById = async (req, res) => {
     } else {
         // fetch reviews
         const reviews = await reviewRepo.get(id);
-        const response = { ...data._doc, reviews };
+        const avgRating = await reviewRepo.getAvgRating(id);
+        const avg = avgRating[0]?.avg;
+        const response = { ...data._doc, avg, reviews };
         res.status(200);
         res.json(response);
     }
@@ -150,4 +152,22 @@ module.exports = {
         {$limit: 3},
         {$project: {state: '$_id', population:'$totalPop', _id:0}}
     ]);
+
+
+    db.cities.aggregate(
+        [
+            {$group: {_id: '$state', total: {$sum:'$pop'}}},
+            {$sort: {total:-1}},
+            {$limit: 3},
+            {$project: {_id:0, state: '$_id', total:'$total'}}
+        ]
+    )
+
+    db.reviews.aggregate(
+    [
+        {$match: {productId: '65fb9ef871dfcb20323abd8f'}},
+        {$group: {_id:'$productId', avg:{$avg: '$rating'}}},
+        {$project: {_id:0}}
+    ]
+    )
 */
