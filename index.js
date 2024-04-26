@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors');
 
 const defaultRoutes = require('./routes/defaultRouter');
 const bookRoutes = require('./routes/bookRoutes');
@@ -42,6 +43,7 @@ const conStr = process.env.dbConStr;
 mongoose.connect(conStr);
 console.log('db connected');
 
+app.use(cors());
 app.use(express.static('uploads/'));
 
 app.use('/', defaultRoutes);
