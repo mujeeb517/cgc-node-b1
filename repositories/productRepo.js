@@ -16,9 +16,9 @@ const getCount = (search) => {
 };
 
 const get = (options) => {
-    const { sort, current, size, search, direction } = options;
+    const { sort, page, size, search, direction } = options;
 
-    const rowsToSkip = (current - 1) * size;
+    const rowsToSkip = (page - 1) * size;
     const filter = getFilterExp(search);
 
     let sortDir = 1;
