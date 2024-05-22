@@ -50,7 +50,7 @@ app.use('/', defaultRoutes);
 app.use('/api/v1/users', userRoutes);
 
 // app.use(auth.basicAuth);
-// app.use(auth.tokenAuth);
+app.use(auth.tokenAuth);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/books', bookRoutes);
 
